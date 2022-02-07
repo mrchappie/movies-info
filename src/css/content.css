@@ -1,0 +1,22 @@
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  min-height: 100vh;
+  background-color: grey;
+  border: 1px solid blue;
+}
+
+.content .movie {
+  position: relative;
+  margin: 1px;
+  width: calc((100vw - 10px) / 5);
+  height: 450px;
+  background-color: red;
+}

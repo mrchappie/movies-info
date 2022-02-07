@@ -1,0 +1,25 @@
+:root {
+  /* BLACK OVERLAY WITH OPACITY FROM 0.1 TO 1 */
+  --overlay__black__10: rgba(0, 0, 0, 0.1);
+  --overlay__black__20: rgba(0, 0, 0, 0.2);
+  --overlay__black__30: rgba(0, 0, 0, 0.3);
+  --overlay__black__40: rgba(0, 0, 0, 0.4);
+  --overlay__black__50: rgba(0, 0, 0, 0.5);
+  --overlay__black__60: rgba(0, 0, 0, 0.6);
+  --overlay__black__70: rgba(0, 0, 0, 0.7);
+  --overlay__black__80: rgba(0, 0, 0, 0.8);
+  --overlay__black__90: rgba(0, 0, 0, 0.9);
+  --overlay__black__100: rgba(0, 0, 0, 1);
+
+  /* WHITE OVERLAY WITH OPACITY FROM 0.1 TO 1 */
+  --overlay__white__10: rgba(255, 255, 255, 0.1);
+  --overlay__white__20: rgba(255, 255, 255, 0.2);
+  --overlay__white__30: rgba(255, 255, 255, 0.3);
+  --overlay__white__40: rgba(255, 255, 255, 0.4);
+  --overlay__white__50: rgba(255, 255, 255, 0.5);
+  --overlay__white__60: rgba(255, 255, 255, 0.6);
+  --overlay__white__70: rgba(255, 255, 255, 0.7);
+  --overlay__white__80: rgba(255, 255, 255, 0.8);
+  --overlay__white__90: rgba(255, 255, 255, 0.9);
+  --overlay__white__100: rgba(255, 255, 255, 1);
+}

@@ -1,0 +1,21 @@
+.btn {
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.search__btn {
+  font-size: 20px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  right: 0px;
+
+  width: 3em;
+  height: 3em;
+
+  border: 1px solid var(--overlay__black__100);
+  border-radius: 30px;
+}
