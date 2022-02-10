@@ -16,6 +16,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  z-index: 100;
+}
+
+.search-box.over__content {
+  position: absolute;
+  top: 5% !important;
+  left: 95% !important;
+  transform: translate(-95%, -5%) !important;
 }
 
 .search-box .search .search__field {

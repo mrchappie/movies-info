@@ -21,7 +21,7 @@
   </head>
   <body>
     <div class="app-container" id="container">
-      <!-- <div class="search-box" id="search">
+      <div class="search-box" id="search">
         <form class="search">
           <input
             type="text"
@@ -34,10 +34,29 @@
             </div>
           </button>
         </form>
-      </div>  -->
+      </div>
       <div class="content" id="content">
         <div class="movie">
-          <div class="movie__poster"></div>
+          <img
+            class="movie__poster"
+            src="https://picsum.photos/300"
+            alt="x movie poster"
+          />
+          <div class="movie__poster__overlay"></div>
+          <div class="info">
+            <span class="title">Avengers: Endgame</span>
+            <span class="year">2019</span>
+            <div class="raiting">
+              <span>
+                <i class="show fa fa-star"></i>
+                <i class="show fa fa-star"></i>
+                <i class="show fa fa-star"></i>
+                <i class="show fa fa-star"></i>
+                <i class="show fa fa-star"></i>
+                <i class="show fa fa-star-half"></i>
+              </span>
+            </div>
+          </div>
         </div>
         <div class="movie">
           <div class="movie__poster"></div>
@@ -66,9 +85,6 @@
         <div class="movie">
           <div class="movie__poster"></div>
         </div>
-        <!-- <div class="movie">
-          <div class="movie__poster"></div>
-        </div>
         <div class="movie">
           <div class="movie__poster"></div>
         </div>
@@ -80,10 +96,16 @@
         </div>
         <div class="movie">
           <div class="movie__poster"></div>
-        </div> -->
+        </div>
+        <div class="movie">
+          <div class="movie__poster"></div>
+        </div>
+        <div class="movie">
+          <div class="movie__poster"></div>
+        </div>
       </div>
     </div>
 
-    <!-- <script src="./src/js/script.js" type="module"></script> -->
+    <script src="./src/js/controller.js" type="module"></script>
   </body>
 </html>
