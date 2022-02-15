@@ -8,9 +8,9 @@ class FirstLoadView {
     this._parentElement.addEventListener('submit', handler);
   }
 
-  moveSearchBar() {
-    this._parentElement.classList.add('over__content');
-  }
+  // moveSearchBar() {
+  //   this._parentElement.classList.add('over__content');
+  // }
 }
 
 export default new FirstLoadView();
