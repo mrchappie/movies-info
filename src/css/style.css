@@ -18,7 +18,7 @@ body {
       var(--overlay__black__90),
       var(--overlay__black__90)
     ),
-    url(../img/bg_1.jpg);
+    url(https://images.pexels.com/photos/3921045/pexels-photo-3921045.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
 
   background-position: center;
   background-repeat: no-repeat;
@@ -27,6 +27,13 @@ body {
   padding: 0;
 
   overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {

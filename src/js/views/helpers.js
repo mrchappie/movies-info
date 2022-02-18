@@ -21,3 +21,29 @@ export const getJSON = async function (url) {
     throw err;
   }
 };
+
+export const getJSONBySearch = async function (url) {
+  try {
+    const res = await Promise.race([fetch(url), timeout(config.TIMEOUT_SEC)]);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getMovieTrailer = async function (url) {
+  try {
+    const res = await Promise.race([fetch(url), timeout(config.TIMEOUT_SEC)]);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};

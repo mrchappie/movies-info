@@ -5,10 +5,16 @@ import * as model from '../model.js';
 import * as controller from '../controller.js';
 
 class ContentView {
-  _parentElement = document.querySelector('.content');
+  _parentElement = document.getElementById('content');
   _movieElement;
   _movieInfo = document.querySelectorAll('.info');
   _movieOverlay = document.querySelector('.movie__poster__overlay');
+  _movieAbout = document.querySelector('.about__movie');
+  _movieInformation = document.querySelector('.information');
+  // _movieTrailer = document.getElementById('trailer').src;
+  // _movieTitle = document.querySelector('.title');
+  // _movieYear = document.querySelector('.year');
+  // _movieDescription = document.querySelector('.description');
   _errorMesage = 'Something went wrong, please try again!`';
   _succesMesage = '';
 
@@ -17,15 +23,46 @@ class ContentView {
     // window.addEventListener('resize', handler);
   }
 
-  // addHandlerShowInfo(handler) {
-  //   this._movieElement.forEach(function (e) {
-  //     e.addEventListener('click', handler);
-  //   });
-  // }
+  addHandlerCleckedMovie(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const mov = e.target.closest('.movie__poster');
 
-  // _showMovieInfo() {
-  //   this._movieInfo.style.display = 'flex';
-  // }
+      if (!mov) return;
+
+      handler(mov);
+    });
+  }
+
+  renderTrailer(arr) {
+    arr.forEach(trailer => {
+      console.log(model.movData);
+      this._pushTrailerMarkup(trailer);
+    });
+  }
+
+  _pushTrailerMarkup(trailer) {
+    const markup = `
+    <div class="about">
+      <span class="title">${2}</span>   
+        <span class="year">
+          <span>english |</span>   
+            <span>2021 |</span>   
+              <span>8.5</span> 
+        </span>  
+              <span class="description">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi modi dignissimos est, natus distinctio sint. Eius harum rem mollitia in repellat sapiente quos, fugiat praesentium aliquam labore minus quisquam nihil cumque ipsa asperiores? Deserunt quia delectus ducimus ea vero quo!
+              </span>   
+    </div>
+
+    <div class="trailer">
+        <iframe id="trailer" width="894" height="472" src="https://www.youtube.com/embed/${
+          trailer.key
+        }" allowfullscreen>
+        </iframe>
+    </div>`;
+
+    this._movieInformation.insertAdjacentHTML('afterbegin', markup);
+  }
 
   _clear() {
     this._parentElement.innerHTML = '';
@@ -110,98 +147,86 @@ class ContentView {
     this._movieElement = document.querySelectorAll('.movie');
   }
 
-  _generateAverageScore(movie) {
-    const calcMovieStars = function (voteAverage) {
-      voteAverage = voteAverage;
+  // _generateAverageScore(movie) {
+  //   const calcMovieStars = function (voteAverage) {
+  //     voteAverage = voteAverage;
 
-      let markup;
+  //     let markup;
 
-      const star = +voteAverage / 2;
+  //     const star = +voteAverage / 2;
 
-      if (Number.isInteger(star) && star === 1) {
-        markup = `
-        <i class="show fa fa-star"></i>`;
-      } else if (star % 1 != 0 && star > 0 && star < 1) {
-        markup = `
-        <i class="show fa fa-star-half"></i>
-        `;
-      } else if (Number.isInteger(star) && star === 2) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>`;
-      } else if (star % 1 != 0 && star > 1 && star < 2) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star-half"></i>
-        `;
-      } else if (Number.isInteger(star) && star === 3) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>`;
-      } else if (star % 1 != 0 && star > 2 && star < 3) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star-half"></i>
-        `;
-      } else if (Number.isInteger(star) && star === 4) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>`;
-      } else if (star % 1 != 0 && star > 3 && star < 4) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star-half"></i>
-        `;
-      } else if (Number.isInteger(star) && star === 5) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>`;
-      } else if (star % 1 != 0 && star > 4 && star < 5) {
-        markup = `
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star"></i>
-        <i class="show fa fa-star-half"></i>
-        `;
-      }
+  //     if (Number.isInteger(star) && star === 1) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>`;
+  //     } else if (star % 1 != 0 && star > 0 && star < 1) {
+  //       markup = `
+  //       <i class="show fa fa-star-half"></i>
+  //       `;
+  //     } else if (Number.isInteger(star) && star === 2) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>`;
+  //     } else if (star % 1 != 0 && star > 1 && star < 2) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star-half"></i>
+  //       `;
+  //     } else if (Number.isInteger(star) && star === 3) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>`;
+  //     } else if (star % 1 != 0 && star > 2 && star < 3) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star-half"></i>
+  //       `;
+  //     } else if (Number.isInteger(star) && star === 4) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>`;
+  //     } else if (star % 1 != 0 && star > 3 && star < 4) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star-half"></i>
+  //       `;
+  //     } else if (Number.isInteger(star) && star === 5) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>`;
+  //     } else if (star % 1 != 0 && star > 4 && star < 5) {
+  //       markup = `
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star"></i>
+  //       <i class="show fa fa-star-half"></i>
+  //       `;
+  //     }
 
-      return markup;
-    };
+  //     return markup;
+  //   };
 
-    calcMovieStars(movie);
-  }
+  //   calcMovieStars(movie);
+  // }
 
   _generateMarkup(movie) {
     const markup = `
     <div class="movie">
-          <img
+          <img data-mov=${movie.id}
             class="movie__poster"
             src="${IMG_PATH}${movie.posterUrl}"
             alt="${movie.title}"
-          />
-          <div class="movie__poster__overlay"></div>
-          <div class="info">
-            <span class="title">${movie.title}</span>
-            <span class="year">${movie.releaseDate}</span>
-            <div class="raiting">
-              <span>
-                ${this._generateAverageScore(movie.voteAverage)}
-                
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+          />  
+    </div>
   `;
 
     this._parentElement.insertAdjacentHTML('beforeend', markup);

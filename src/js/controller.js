@@ -2,24 +2,43 @@ import * as model from '../js/model.js';
 import * as config from './views/config.js';
 import contentView from './views/contentView.js';
 import firstLoadView from './views/firstLoadView.js';
+import searchView from './views/searchView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 const controlContent = function () {
   try {
-    model.getMovies(config.API_URL);
+    const query = searchView.getQuery();
 
-    model.createMovieObjects(model.state.search.results);
+    if (query) {
+      console.log(query);
+      model.getMovie(`${config.SEARCH_API}${query}"`);
 
-    setTimeout(() => {
-      if (model.state.search.results.length !== 0) {
-        contentView.render(model.state.search.results);
-        contentView.test();
+      model.createMovieObjects(model.state.search.resultsBySearch);
 
-        // afterInit();
-      }
-    }, 500);
+      setTimeout(() => {
+        if (model.state.search.resultsBySearch.length !== 0) {
+          contentView.render(model.state.search.resultsBySearch);
+          contentView.test();
+
+          // afterInit();
+        }
+      }, 500);
+    } else if (!query) {
+      model.getMovies(config.API_URL);
+
+      model.createMovieObjects(model.state.search.results);
+
+      setTimeout(() => {
+        if (model.state.search.results.length !== 0) {
+          contentView.render(model.state.search.results);
+          contentView.test();
+
+          // afterInit();
+        }
+      }, 500);
+    }
   } catch (err) {
     console.error(err);
   }
@@ -57,9 +76,31 @@ const showInfo = function () {
   }
 };
 
+const controlClickedMovie = function (e) {
+  movId = e.dataset.mov;
+
+  model.getTrailer(
+    `${config.SEARCH_TRAILER_1}${movId}${config.SEARCH_TRAILER_2}`
+  );
+
+  contentView._movieAbout.style.display = 'flex';
+
+  setTimeout(() => {
+    model.searchMovieAfterTrailer(movId);
+  }, 200);
+
+  setTimeout(() => {
+    contentView.renderTrailer(model.state.movie.trailer);
+  }, 500);
+
+  contentView._parentElement.style.display = 'none';
+  searchView._parentEl.style.display = 'none';
+};
+
 const init = function () {
   contentView.addHandlerRenderContent(controlWindowSize);
   firstLoadView.addHanddlerSearchButton(controlFirstLoad);
+  contentView.addHandlerCleckedMovie(controlClickedMovie);
 };
 
 // const afterInit = function () {
