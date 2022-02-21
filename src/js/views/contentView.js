@@ -10,11 +10,8 @@ class ContentView {
   _movieInfo = document.querySelectorAll('.info');
   _movieOverlay = document.querySelector('.movie__poster__overlay');
   _movieAbout = document.querySelector('.about__movie');
+  _backHome = document.querySelector('.home__btn');
   _movieInformation = document.querySelector('.information');
-  // _movieTrailer = document.getElementById('trailer').src;
-  // _movieTitle = document.querySelector('.title');
-  // _movieYear = document.querySelector('.year');
-  // _movieDescription = document.querySelector('.description');
   _errorMesage = 'Something went wrong, please try again!`';
   _succesMesage = '';
 
@@ -23,49 +20,14 @@ class ContentView {
     // window.addEventListener('resize', handler);
   }
 
-  addHandlerCleckedMovie(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      const mov = e.target.closest('.movie__poster');
-
-      if (!mov) return;
-
-      handler(mov);
-    });
-  }
-
-  renderTrailer(arr) {
-    arr.forEach(trailer => {
-      console.log(model.movData);
-      this._pushTrailerMarkup(trailer);
-    });
-  }
-
-  _pushTrailerMarkup(trailer) {
-    const markup = `
-    <div class="about">
-      <span class="title">${2}</span>   
-        <span class="year">
-          <span>english |</span>   
-            <span>2021 |</span>   
-              <span>8.5</span> 
-        </span>  
-              <span class="description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi modi dignissimos est, natus distinctio sint. Eius harum rem mollitia in repellat sapiente quos, fugiat praesentium aliquam labore minus quisquam nihil cumque ipsa asperiores? Deserunt quia delectus ducimus ea vero quo!
-              </span>   
-    </div>
-
-    <div class="trailer">
-        <iframe id="trailer" width="894" height="472" src="https://www.youtube.com/embed/${
-          trailer.key
-        }" allowfullscreen>
-        </iframe>
-    </div>`;
-
-    this._movieInformation.insertAdjacentHTML('afterbegin', markup);
+  addHandlerBackHome(handler) {
+    this._backHome.addEventListener('click', handler);
   }
 
   _clear() {
     this._parentElement.innerHTML = '';
+    this._parentElement.innerHTML =
+      '<div class="home__btn"><i class="fa-solid fa-house"></i></div>';
   }
 
   test() {

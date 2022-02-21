@@ -1,0 +1,31 @@
+.app-container .content .home__btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 30px;
+  right: 30px;
+
+  width: 50px;
+  height: 50px;
+
+  font-size: 40px;
+
+  transition: all 0.5s ease;
+
+  z-index: 100;
+}
+
+.app-container .content .home__btn .fa-house {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+  color: white;
+
+  cursor: pointer;
+}
+
+.app-container .content .home__btn:hover {
+  transform: translateY(-5px);
+}

@@ -122,6 +122,38 @@
   z-index: 5;
 }
 
+.app-container .about__movie .home__btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 30px;
+  right: 30px;
+
+  width: 50px;
+  height: 50px;
+
+  font-size: 40px;
+
+  transition: all 0.5s ease;
+
+  z-index: 100;
+}
+
+.app-container .about__movie .home__btn .fa-house {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+  color: white;
+
+  cursor: pointer;
+}
+
+.app-container .about__movie .home__btn:hover {
+  transform: translateY(-5px);
+}
+
 .app-container .about__movie .information {
   position: relative;
 
@@ -131,7 +163,10 @@
 
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 1);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .app-container .about__movie .about {
@@ -173,7 +208,7 @@
   text-align: center;
 }
 
-.app-container .about__movie .trailer {
+.app-container .about__movie .trailer-box {
   position: relative;
   display: flex;
 
@@ -185,7 +220,23 @@
   justify-content: center;
 }
 
-@media (max-width: 1200px) {
+.app-container .about__movie .trailer-box .trailer {
+  position: relative;
+  opacity: 0.8;
+  transition: all 1s ease;
+}
+
+.app-container .about__movie .trailer-box .trailer:hover {
+  opacity: 1;
+}
+
+.app-container .about__movie .trailer-box .trailer {
+  width: 894px;
+  height: 472px;
+  border: none;
+}
+
+@media (max-width: 1300px) {
   .app-container .about__movie .information {
     display: grid;
     grid-template-columns: auto;
@@ -197,8 +248,27 @@
     grid-row: 1/2;
   }
 
-  .app-container .about__movie .trailer {
+  .app-container .about__movie .trailer-box {
     grid-column: 1;
     grid-row: 2/4;
+  }
+}
+
+@media (max-width: 1000px) {
+  .app-container .about__movie .trailer-box .trailer {
+    width: 490px;
+    height: 270px;
+  }
+
+  .app-container .about__movie .about .title {
+    font-size: 25px;
+  }
+
+  .app-container .about__movie .about .year {
+    font-size: 20px;
+  }
+
+  .app-container .about__movie .about .description {
+    font-size: 20px;
   }
 }

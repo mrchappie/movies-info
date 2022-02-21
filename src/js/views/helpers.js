@@ -9,7 +9,7 @@ const timeout = function (s) {
   });
 };
 
-export const getJSON = async function (url) {
+export const getJSONByMostPopular = async function (url) {
   try {
     const res = await Promise.race([fetch(url), timeout(config.TIMEOUT_SEC)]);
     const data = await res.json();

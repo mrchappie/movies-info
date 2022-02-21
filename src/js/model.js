@@ -1,85 +1,80 @@
 // import './searchBtn.js';
 // import './views/contentView.js';
 import './views/helpers.js';
-import { getJSON } from './views/helpers.js';
+import { getMovieTrailer } from './views/helpers.js';
 import { getJSONBySearch } from './views/helpers.js';
+import { getJSONByMostPopular } from './views/helpers.js';
 import * as config from './views/config.js';
 import { async } from 'regenerator-runtime';
 
-// const URL = 'https://imdb8.p.rapidapi.com/auto-complete?q=no%20way%20home';
-// const API_KEY = 'cf5b5fe683msh3d4579d547c9747p125e10jsn21fe9950b3a3';
-
-// const getMovieData = async function (url) {
-//   try {
-//     const result = await fetch(`${url}`, {
-//       method: 'GET',
-//       headers: {
-//         'x-rapidapi-host': 'imdb8.p.rapidapi.com',
-//         'x-rapidapi-key': 'cf5b5fe683msh3d4579d547c9747p125e10jsn21fe9950b3a3',
-//       },
-//     });
-//     const data = await result.json();
-
-//     console.log(data);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
-// getMovieData(`${URL}`);
-
 export const state = {
   movie: {
-    //here is an array for a single movie
-    movieBySearch: [],
-    //here is an array for multiple movies, eg. TOP 100
-    movieByResults: [],
-    trailers: [],
-    trailer: [],
+    //here is an array for movies by search
+    movieBySearch: {
+      results: [],
+      movies: [],
+      trailers: [],
+      trailer: [],
+    },
+    //here is an array for most popular movies, eg. TOP 20
+    movieByMostPopular: {
+      results: [],
+      movies: [],
+      trailers: [],
+      trailer: [],
+    },
+
+    trailerData: {
+      search: [],
+      popular: [],
+    },
   },
-  search: {
-    resultsBySearch: [],
-    results: [],
-  },
+  // search: {
+  //   resultsBySearch: { trailers: [], trailer: [] },
+  //   resultsByMostpopular: { trailers: [], trailer: [] },
+  // },
 };
 
-export const createMovieObjects = function (movie) {
-  state.movie.movieByResults = state.search.results.map(mov => {
-    return {
-      id: mov.id,
-      title: mov.title,
-      description: mov.description,
-      posterUrl: mov.posterUrl,
-      releaseDate: mov.releaseDate,
-      video: mov.video,
-      voteAverage: mov.voteAverage,
-    };
-  });
+export const createMovieObjectsBySearch = function () {
+  state.movie.movieBySearch.movies = state.movie.movieBySearch.results.map(
+    mov => {
+      return {
+        id: mov.id,
+        title: mov.title,
+        description: mov.description,
+        posterUrl: mov.posterUrl,
+        releaseDate: mov.releaseDate,
+        video: mov.video,
+        voteAverage: mov.voteAverage,
+      };
+    }
+  );
 };
 
-// const createMovieObject = function (movie) {
-//   const mov = movie.results.resultsBySearch;
-
-//   return {
-//     id: mov.id,
-//     title: mov.original_title,
-//     description: mov.overview,
-//     posterUrl: mov.poster_path,
-//     releaseDate: mov.release_date,
-//     video: mov.video,
-//     voteAverage: mov.vote_average,
-//   };
-// };
+export const createMovieObjectsByPopular = function () {
+  state.movie.movieByMostPopular.movies =
+    state.movie.movieByMostPopular.results.map(mov => {
+      return {
+        id: mov.id,
+        title: mov.title,
+        description: mov.description,
+        posterUrl: mov.posterUrl,
+        releaseDate: mov.releaseDate,
+        video: mov.video,
+        voteAverage: mov.voteAverage,
+      };
+    });
+};
 
 //get initial movies
-export const getMovie = async function (url) {
+export const getMoviesBySearch = async function (url) {
   try {
     const data = await getJSONBySearch(`${url}`);
 
-    state.search.resultsBySearch = data.results.map(mov => {
+    state.movie.movieBySearch.results = data.results.map(mov => {
       return {
         id: mov.id,
-        genreId: mov.genre_ids,
+        // genreId: mov.genre_ids,
         adult: mov.adult,
         language: mov.original_language,
         title: mov.original_title,
@@ -94,20 +89,20 @@ export const getMovie = async function (url) {
       };
     });
 
-    console.log(data.results);
+    console.log(state.movie.movieBySearch.results);
   } catch (err) {
     console.error(err);
   }
 };
 
-export const getMovies = async function (url) {
+export const getMoviesByMostPopular = async function (url) {
   try {
-    const data = await getJSON(`${url}`);
+    const data = await getJSONByMostPopular(`${url}`);
 
-    state.search.results = data.results.map(mov => {
+    state.movie.movieByMostPopular.results = data.results.map(mov => {
       return {
         id: mov.id,
-        genreId: mov.genre_ids,
+        // genreId: mov.genre_ids,
         adult: mov.adult,
         language: mov.original_language,
         title: mov.original_title,
@@ -122,60 +117,96 @@ export const getMovies = async function (url) {
       };
     });
 
-    console.log(state.search.results);
+    console.log(state.movie.movieByMostPopular.results);
   } catch (err) {
     console.error(err);
   }
 };
 
-export const getTrailer = async function (url) {
+export const getTrailerBySearch = async function (url) {
   try {
-    const data = await getJSON(`${url}`);
+    const data = await getMovieTrailer(`${url}`);
 
-    state.movie.trailers = data.results.map(trailer => {
+    state.movie.movieBySearch.trailers = data.results.map(trailer => {
       return {
-        id: trailer.id,
-        language: trailer.iso_639_1,
-        adult: trailer.adult,
-        languageCountry: trailer.iso_3166_1,
-        name: trailer.name,
         key: trailer.key,
-        official: trailer.official,
-        releaseDate: trailer.published_at,
-        site: trailer.site,
-        size: trailer.size,
-        type: trailer.type,
+        name: trailer.name,
       };
+
+      // return {
+      //   id: trailer.id,
+      //   language: trailer.iso_639_1,
+      //   adult: trailer.adult,
+      //   languageCountry: trailer.iso_3166_1,
+      //   name: trailer.name,
+      //   key: trailer.key,
+      //   official: trailer.official,
+      //   releaseDate: trailer.published_at,
+      //   site: trailer.site,
+      //   size: trailer.size,
+      //   type: trailer.type,
+      // };
     });
-    console.log(state.movie.trailers);
-    chooseTrailer(state.movie.trailer);
+    console.log(state.movie.movieBySearch.trailers);
+    // chooseTrailer(state.movie.trailer);
   } catch (err) {
     console.log(err);
   }
 };
 
-const chooseTrailer = function (obj) {
+export const getTrailerByMostPopular = async function (url) {
   try {
-    const trailers = state.movie.trailers;
+    const data = await getMovieTrailer(`${url}`);
 
-    state.movie.trailer = trailers.filter(
-      trailer => Object.values(trailer).indexOf('Official Trailer') > -1
-    );
+    state.movie.movieByMostPopular.trailers = data.results.map(trailer => {
+      return {
+        key: trailer.key,
+        name: trailer.name,
+      };
 
-    console.log(state.movie.trailer);
+      // return {
+      //   id: trailer.id,
+      //   language: trailer.iso_639_1,
+      //   adult: trailer.adult,
+      //   languageCountry: trailer.iso_3166_1,
+      //   name: trailer.name,
+      //   key: trailer.key,
+      //   official: trailer.official,
+      //   releaseDate: trailer.published_at,
+      //   site: trailer.site,
+      //   size: trailer.size,
+      //   type: trailer.type,
+      // };
+    });
+    console.log(state.movie.movieByMostPopular.trailers);
+    // chooseTrailer(state.movie.trailer);
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };
 
-export let movData;
+// const chooseTrailer = function (obj) {
+//   try {
+//     const trailers = state.movie.trailers;
 
-export const searchMovieAfterTrailer = function (id) {
-  const data = id;
-  movData = state.search.results.filter(
-    el => Object.values(el).indexOf(+data) > -1
-  );
-};
+//     state.movie.trailer = trailers.filter(
+//       trailer => Object.values(trailer).indexOf('Official Trailer') > -1
+//     );
+
+//     console.log(state.movie.trailer);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+
+// export let movData;
+
+// export const searchMovieAfterTrailer = function (id) {
+//   const data = id;
+//   movData = state.search.results.filter(
+//     el => Object.values(el).indexOf(+data) > -1
+//   );
+// };
 
 // export const showMovies = function (movies) {
 //   const [...data] = movies;

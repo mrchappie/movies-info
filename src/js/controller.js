@@ -3,6 +3,7 @@ import * as config from './views/config.js';
 import contentView from './views/contentView.js';
 import firstLoadView from './views/firstLoadView.js';
 import searchView from './views/searchView.js';
+import trailerView from './views/trailerView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -13,29 +14,31 @@ const controlContent = function () {
 
     if (query) {
       console.log(query);
-      model.getMovie(`${config.SEARCH_API}${query}"`);
+      model.getMoviesBySearch(`${config.SEARCH_API}${query}"`);
 
-      model.createMovieObjects(model.state.search.resultsBySearch);
+      model.createMovieObjectsBySearch();
 
       setTimeout(() => {
-        if (model.state.search.resultsBySearch.length !== 0) {
-          contentView.render(model.state.search.resultsBySearch);
+        if (model.state.movie.movieBySearch.results.length !== 0) {
+          contentView.render(model.state.movie.movieBySearch.results);
           contentView.test();
-
-          // afterInit();
+          // model.getTrailerBySearch(
+          //   `${config.SEARCH_TRAILER_1}${634649}${config.SEARCH_TRAILER_2}`
+          // );
         }
       }, 500);
     } else if (!query) {
-      model.getMovies(config.API_URL);
+      model.getMoviesByMostPopular(config.API_URL);
 
-      model.createMovieObjects(model.state.search.results);
+      model.createMovieObjectsByPopular();
 
       setTimeout(() => {
-        if (model.state.search.results.length !== 0) {
-          contentView.render(model.state.search.results);
+        if (model.state.movie.movieByMostPopular.results.length !== 0) {
+          contentView.render(model.state.movie.movieByMostPopular.results);
           contentView.test();
-
-          // afterInit();
+          // model.getTrailerByMostPopular(
+          //   `${config.SEARCH_TRAILER_1}${634649}${config.SEARCH_TRAILER_2}`
+          // );
         }
       }, 500);
     }
@@ -58,8 +61,11 @@ const controlFirstLoad = function (e) {
 
 const controlWindowSize = function () {
   try {
-    if (model.state.search.results.length === 0) return;
-    // throw new Error('Something is wrong!');
+    if (
+      model.state.movie.movieBySearch.results.length === 0 &&
+      model.state.movie.movieByMostPopular.results.length === 0
+    )
+      return;
 
     contentView.test();
   } catch (err) {
@@ -68,43 +74,63 @@ const controlWindowSize = function () {
   }
 };
 
-const showInfo = function () {
-  try {
-    contentView._showMovieInfo();
-  } catch (err) {
-    console.error(err);
+const controlClickedMovie = function (e, type) {
+  trailerView._movieID = e.dataset.mov;
+
+  if (type === 'popular') {
+    console.log(type);
+    trailerView._searchForTrailers(type);
+    setTimeout(() => {
+      trailerView._filterTrailersArr(
+        model.state.movie.movieByMostPopular.trailers,
+        type
+      );
+      trailerView._filterMoviesArrForID(
+        model.state.movie.movieByMostPopular.results,
+        trailerView._movieID,
+        type
+      );
+      trailerView.renderTrailer(
+        model.state.movie.trailerData.popular,
+        model.state.movie.movieByMostPopular.trailer
+      );
+    }, 500);
+  } else if (type === 'search') {
+    console.log(type);
+    trailerView._searchForTrailers(type);
+    setTimeout(() => {
+      trailerView._filterTrailersArr(
+        model.state.movie.movieBySearch.trailers,
+        type
+      );
+      trailerView._filterMoviesArrForID(
+        model.state.movie.movieBySearch.results,
+        trailerView._movieID,
+        type
+      );
+      trailerView.renderTrailer(
+        model.state.movie.trailerData.search,
+        model.state.movie.movieBySearch.trailer
+      );
+    }, 500);
   }
-};
-
-const controlClickedMovie = function (e) {
-  movId = e.dataset.mov;
-
-  model.getTrailer(
-    `${config.SEARCH_TRAILER_1}${movId}${config.SEARCH_TRAILER_2}`
-  );
-
   contentView._movieAbout.style.display = 'flex';
-
-  setTimeout(() => {
-    model.searchMovieAfterTrailer(movId);
-  }, 200);
-
-  setTimeout(() => {
-    contentView.renderTrailer(model.state.movie.trailer);
-  }, 500);
-
   contentView._parentElement.style.display = 'none';
   searchView._parentEl.style.display = 'none';
 };
 
-const init = function () {
-  contentView.addHandlerRenderContent(controlWindowSize);
-  firstLoadView.addHanddlerSearchButton(controlFirstLoad);
-  contentView.addHandlerCleckedMovie(controlClickedMovie);
+const controlBackHome = function () {
+  contentView._movieAbout.style.display = 'none';
+  contentView._parentElement.style.display = 'none';
+  searchView._parentEl.style.display = 'flex';
 };
 
-// const afterInit = function () {
-//   contentView.addHandlerShowInfo(showInfo);
-// };
+const init = function () {
+  contentView.addHandlerRenderContent(controlWindowSize);
+  contentView.addHandlerBackHome(controlBackHome);
+
+  firstLoadView.addHanddlerSearchButton(controlFirstLoad);
+  trailerView.addHandlerClickedMovie(controlClickedMovie);
+};
 
 init();

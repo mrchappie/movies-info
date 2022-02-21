@@ -22,4 +22,7 @@
   --overlay__white__80: rgba(255, 255, 255, 0.8);
   --overlay__white__90: rgba(255, 255, 255, 0.9);
   --overlay__white__100: rgba(255, 255, 255, 1);
+
+  /* BUTTONS */
+  --btn-bg: #c31432;
 }
