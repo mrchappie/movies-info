@@ -1,4 +1,4 @@
-.app-container .content .home__btn {
+body .home__btn {
   position: absolute;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
   z-index: 100;
 }
 
-.app-container .content .home__btn .fa-house {
+body .home__btn .fa-house {
   display: flex;
 
   width: 100%;
@@ -26,6 +26,6 @@
   cursor: pointer;
 }
 
-.app-container .content .home__btn:hover {
-  transform: translateY(-5px);
+body .home__btn:active {
+  transform: translateY(-15px);
 }

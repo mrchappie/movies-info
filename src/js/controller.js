@@ -21,7 +21,7 @@ const controlContent = function () {
       setTimeout(() => {
         if (model.state.movie.movieBySearch.results.length !== 0) {
           contentView.render(model.state.movie.movieBySearch.results);
-          contentView.test();
+          contentView.resizeContentToFitPage();
           // model.getTrailerBySearch(
           //   `${config.SEARCH_TRAILER_1}${634649}${config.SEARCH_TRAILER_2}`
           // );
@@ -35,7 +35,7 @@ const controlContent = function () {
       setTimeout(() => {
         if (model.state.movie.movieByMostPopular.results.length !== 0) {
           contentView.render(model.state.movie.movieByMostPopular.results);
-          contentView.test();
+          contentView.resizeContentToFitPage();
           // model.getTrailerByMostPopular(
           //   `${config.SEARCH_TRAILER_1}${634649}${config.SEARCH_TRAILER_2}`
           // );
@@ -67,7 +67,7 @@ const controlWindowSize = function () {
     )
       return;
 
-    contentView.test();
+    contentView.resizeContentToFitPage();
   } catch (err) {
     console.error(err);
     throw err;
@@ -81,13 +81,13 @@ const controlClickedMovie = function (e, type) {
     console.log(type);
     trailerView._searchForTrailers(type);
     setTimeout(() => {
-      trailerView._filterTrailersArr(
-        model.state.movie.movieByMostPopular.trailers,
-        type
-      );
       trailerView._filterMoviesArrForID(
         model.state.movie.movieByMostPopular.results,
         trailerView._movieID,
+        type
+      );
+      trailerView._filterTrailersArr(
+        model.state.movie.movieByMostPopular.trailers,
         type
       );
       trailerView.renderTrailer(
@@ -99,13 +99,13 @@ const controlClickedMovie = function (e, type) {
     console.log(type);
     trailerView._searchForTrailers(type);
     setTimeout(() => {
-      trailerView._filterTrailersArr(
-        model.state.movie.movieBySearch.trailers,
-        type
-      );
       trailerView._filterMoviesArrForID(
         model.state.movie.movieBySearch.results,
         trailerView._movieID,
+        type
+      );
+      trailerView._filterTrailersArr(
+        model.state.movie.movieBySearch.trailers,
         type
       );
       trailerView.renderTrailer(
@@ -120,9 +120,14 @@ const controlClickedMovie = function (e, type) {
 };
 
 const controlBackHome = function () {
+  console.log('CLEARED');
+
   contentView._movieAbout.style.display = 'none';
   contentView._parentElement.style.display = 'none';
   searchView._parentEl.style.display = 'flex';
+
+  contentView._clearObjects();
+  trailerView._clear();
 };
 
 const init = function () {

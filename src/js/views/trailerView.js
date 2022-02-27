@@ -44,18 +44,29 @@ class TrailerView {
   _filterTrailersArr(arr, type) {
     const trailers = arr;
 
-    model.state.movie.movieByMostPopular.trailer = trailers.filter(
-      trailer => trailer.name === 'Official Trailer'
-    );
-
-    if (type === 'search')
+    if (type === 'search') {
+      model.state.movie.movieBySearch.trailer = trailers.filter(trailer => {
+        if (trailer.name === 'Trailer') return trailer;
+        if (trailer.name === 'Official Trailer') return trailer;
+        if (trailer.name === 'Final Trailer') return trailer;
+        if (trailer.name === 'New Trailer') return trailer;
+      });
       model.state.movie.trailerData.search.push(
         model.state.movie.movieBySearch.trailer
       );
-    else if (type === 'popular')
+    } else if (type === 'popular') {
+      model.state.movie.movieByMostPopular.trailer = trailers.filter(
+        trailer => {
+          if (trailer.name === 'Trailer') return trailer;
+          if (trailer.name === 'Official Trailer') return trailer;
+          if (trailer.name === 'Final Trailer') return trailer;
+          if (trailer.name === 'New Trailer') return trailer;
+        }
+      );
       model.state.movie.trailerData.popular.push(
         model.state.movie.movieByMostPopular.trailer
       );
+    }
 
     console.log(this._movieID);
     console.log(model.state.movie.movieByMostPopular.trailer);
@@ -71,7 +82,7 @@ class TrailerView {
 
     console.log(idx);
     console.log(temp);
-    console.log(model.state.movie.trailerData.popular);
+    console.log(model.state.movie.trailerData.search);
   }
 
   renderTrailer(arr1, arr2) {
@@ -88,6 +99,15 @@ class TrailerView {
     };
 
     this._pushTrailerMarkup(data);
+    console.log(info);
+    console.log(trailer);
+    console.log(data);
+  }
+
+  _clear() {
+    // this._aboutMovie.innerHTML = '';
+    this._movieInformation.innerHTML = '';
+    this._movieInformation.style.backgroundImage = '';
   }
 
   _pushTrailerMarkup(trailer) {

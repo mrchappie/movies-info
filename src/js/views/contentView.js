@@ -26,11 +26,49 @@ class ContentView {
 
   _clear() {
     this._parentElement.innerHTML = '';
-    this._parentElement.innerHTML =
-      '<div class="home__btn"><i class="fa-solid fa-house"></i></div>';
+    // this._parentElement.innerHTML =
+    //   '<div class="home__btn"><i class="fa-solid fa-house"></i></div>';
   }
 
-  test() {
+  _clearObjects() {
+    // model.state.movie.movieBySearch.results = [];
+    // model.state.movie.movieBySearch.movies = [];
+    // model.state.movie.movieBySearch.trailers = [];
+    // model.state.movie.movieBySearch.trailer = [];
+
+    // model.state.movie.movieByMostPopular.results = [];
+    // model.state.movie.movieByMostPopular.movies = [];
+    // model.state.movie.movieByMostPopular.trailers = [];
+    // model.state.movie.movieByMostPopular.trailer = [];
+
+    // model.state.movie.trailerData.search = [];
+    // model.state.movie.trailerData.popular = [];
+
+    model.state.movie = {
+      //here is an array for movies by search
+      movieBySearch: {
+        results: [],
+        movies: [],
+        trailers: [],
+        trailer: [],
+      },
+      //here is an array for most popular movies, eg. TOP 20
+      movieByMostPopular: {
+        results: [],
+        movies: [],
+        trailers: [],
+        trailer: [],
+      },
+
+      //trailerView temp. data
+      trailerData: {
+        search: [],
+        popular: [],
+      },
+    };
+  }
+
+  resizeContentToFitPage() {
     // console.log(1);
 
     const windowHeight = window.innerHeight;

@@ -24,15 +24,12 @@ export const state = {
       trailer: [],
     },
 
+    //trailerView temp. data
     trailerData: {
       search: [],
       popular: [],
     },
   },
-  // search: {
-  //   resultsBySearch: { trailers: [], trailer: [] },
-  //   resultsByMostpopular: { trailers: [], trailer: [] },
-  // },
 };
 
 export const createMovieObjectsBySearch = function () {
