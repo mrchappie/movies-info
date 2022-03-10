@@ -14,6 +14,7 @@ class ContentView {
   _movieInformation = document.querySelector('.information');
   _errorMesage = 'Something went wrong, please try again!`';
   _succesMesage = '';
+  _infoMesage = document.querySelector('.message');
 
   addHandlerRenderContent(handler) {
     ['resize', 'load'].forEach(ev => window.addEventListener(ev, handler));
@@ -22,6 +23,12 @@ class ContentView {
 
   addHandlerBackHome(handler) {
     this._backHome.addEventListener('click', handler);
+  }
+
+  _displayMessage() {
+    setTimeout(() => {
+      this._infoMesage.style.display = 'none';
+    }, 4000);
   }
 
   _clear() {
@@ -223,7 +230,11 @@ class ContentView {
     <div class="movie">
           <img data-mov=${movie.id}
             class="movie__poster"
-            src="${IMG_PATH}${movie.posterUrl}"
+            src="${
+              movie.posterUrl
+                ? `${IMG_PATH}${movie.posterUrl}`
+                : 'https://cdn-icons.flaticon.com/png/512/1687/premium/1687361.png?token=exp=1646855723~hmac=9767dc235353be94a69288a2eb3fc360'
+            }"
             alt="${movie.title}"
           />  
     </div>

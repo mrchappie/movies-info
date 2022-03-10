@@ -136,6 +136,8 @@ const init = function () {
 
   firstLoadView.addHanddlerSearchButton(controlFirstLoad);
   trailerView.addHandlerClickedMovie(controlClickedMovie);
+
+  contentView._displayMessage();
 };
 
 init();
