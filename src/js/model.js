@@ -123,11 +123,12 @@ export const getMoviesByMostPopular = async function (url) {
 export const getTrailerBySearch = async function (url) {
   try {
     const data = await getMovieTrailer(`${url}`);
-
+    console.log(data);
     state.movie.movieBySearch.trailers = data.results.map(trailer => {
       return {
         key: trailer.key,
         name: trailer.name,
+        type: trailer.type,
       };
 
       // return {
@@ -159,6 +160,7 @@ export const getTrailerByMostPopular = async function (url) {
       return {
         key: trailer.key,
         name: trailer.name,
+        type: trailer.type,
       };
 
       // return {

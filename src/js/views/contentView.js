@@ -15,6 +15,7 @@ class ContentView {
   _errorMesage = 'Something went wrong, please try again!`';
   _succesMesage = '';
   _infoMesage = document.querySelector('.message');
+  _infoMesageClose = document.querySelector('.fa-circle-xmark ');
 
   addHandlerRenderContent(handler) {
     ['resize', 'load'].forEach(ev => window.addEventListener(ev, handler));
@@ -25,10 +26,20 @@ class ContentView {
     this._backHome.addEventListener('click', handler);
   }
 
+  addHandlerInfoMsgClose(handler) {
+    this._infoMesageClose.addEventListener('click', handler);
+  }
+
   _displayMessage() {
     setTimeout(() => {
-      this._infoMesage.style.display = 'none';
-    }, 4000);
+      this._infoMesage.style.display = 'flex';
+      this._infoMesage.classList.add('anim');
+
+      setTimeout(() => {
+        this._infoMesage.classList.remove('anim');
+        this._infoMesage.style.right = '-400px';
+      }, 15000);
+    }, 500);
   }
 
   _clear() {

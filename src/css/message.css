@@ -1,0 +1,77 @@
+.message {
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--btn-bg);
+
+  bottom: 100px;
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transition: right 1s linear;
+
+  z-index: 100;
+}
+
+.message .close-info {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--overlay__white__100);
+}
+
+.message .close-info .fa-circle-xmark {
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+.message .close-info .fa-circle-xmark:hover {
+  transform: scale(1.1);
+}
+
+.message.anim {
+  animation-name: infoMsg;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+}
+
+@keyframes infoMsg {
+  0% {
+    right: -400px;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+.message h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+
+  color: var(--overlay__white__100);
+  text-align: center;
+  text-indent: 30px;
+}
+
+@media (max-width: 1000px) {
+  .message {
+    width: 400px;
+    height: 50px;
+    right: 0px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .message {
+    width: 400px;
+    height: 50px;
+    right: 0px;
+  }
+}

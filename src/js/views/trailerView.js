@@ -46,10 +46,10 @@ class TrailerView {
 
     if (type === 'search') {
       model.state.movie.movieBySearch.trailer = trailers.filter(trailer => {
-        if (trailer.name === 'Trailer') return trailer;
-        if (trailer.name === 'Official Trailer') return trailer;
-        if (trailer.name === 'Final Trailer') return trailer;
-        if (trailer.name === 'New Trailer') return trailer;
+        if (trailer.type === 'Trailer') return trailer;
+        // if (trailer.name === 'Official Trailer') return trailer;
+        // if (trailer.name === 'Final Trailer') return trailer;
+        // if (trailer.name === 'New Trailer') return trailer;
       });
       model.state.movie.trailerData.search.push(
         model.state.movie.movieBySearch.trailer
@@ -57,10 +57,10 @@ class TrailerView {
     } else if (type === 'popular') {
       model.state.movie.movieByMostPopular.trailer = trailers.filter(
         trailer => {
-          if (trailer.name === 'Trailer') return trailer;
-          if (trailer.name === 'Official Trailer') return trailer;
-          if (trailer.name === 'Final Trailer') return trailer;
-          if (trailer.name === 'New Trailer') return trailer;
+          if (trailer.type === 'Trailer') return trailer;
+          // if (trailer.name === 'Official Trailer') return trailer;
+          // if (trailer.name === 'Final Trailer') return trailer;
+          // if (trailer.name === 'New Trailer') return trailer;
         }
       );
       model.state.movie.trailerData.popular.push(

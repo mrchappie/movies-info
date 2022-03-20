@@ -1,4 +1,5 @@
 class SearchView {
+  _searchContainer = document.querySelector('.search-container');
   _parentEl = document.querySelector('.search-box');
 
   getQuery() {

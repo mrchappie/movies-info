@@ -50,6 +50,9 @@ const controlContent = function () {
 const controlFirstLoad = function (e) {
   try {
     e.preventDefault();
+
+    searchView._searchContainer.style.display = 'none';
+
     contentView._clear();
 
     // setTimeout(() => controlWindowSize(), 500);
@@ -116,7 +119,7 @@ const controlClickedMovie = function (e, type) {
   }
   contentView._movieAbout.style.display = 'flex';
   contentView._parentElement.style.display = 'none';
-  searchView._parentEl.style.display = 'none';
+  searchView._searchContainer.style.display = 'none';
 };
 
 const controlBackHome = function () {
@@ -124,10 +127,15 @@ const controlBackHome = function () {
 
   contentView._movieAbout.style.display = 'none';
   contentView._parentElement.style.display = 'none';
-  searchView._parentEl.style.display = 'flex';
+  searchView._searchContainer.style.display = 'flex';
 
   contentView._clearObjects();
   trailerView._clear();
+};
+
+const controlInfoMsg = function () {
+  contentView._infoMesage.classList.remove('anim');
+  contentView._infoMesage.style.right = '-400px';
 };
 
 const init = function () {
@@ -138,6 +146,7 @@ const init = function () {
   trailerView.addHandlerClickedMovie(controlClickedMovie);
 
   contentView._displayMessage();
+  contentView.addHandlerInfoMsgClose(controlInfoMsg);
 };
 
 init();
